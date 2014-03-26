@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		1B32991418E2A54900708CAE /* KYRefreshControl.m in Sources */ = {isa = PBXBuildFile; fileRef = 1B32991318E2A54900708CAE /* KYRefreshControl.m */; };
 		1B36647C1865A9FA006F6231 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1B36647B1865A9FA006F6231 /* Foundation.framework */; };
 		1B36647E1865A9FA006F6231 /* CoreGraphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1B36647D1865A9FA006F6231 /* CoreGraphics.framework */; };
 		1B3664801865A9FA006F6231 /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1B36647F1865A9FA006F6231 /* UIKit.framework */; };
@@ -21,7 +22,6 @@
 		1B36649D1865A9FB006F6231 /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1B36647F1865A9FA006F6231 /* UIKit.framework */; };
 		1B3664A51865A9FB006F6231 /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = 1B3664A31865A9FB006F6231 /* InfoPlist.strings */; };
 		1B3664A71865A9FB006F6231 /* PullToRefreshControlDemoTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 1B3664A61865A9FB006F6231 /* PullToRefreshControlDemoTests.m */; };
-		1B3664B21865ABAB006F6231 /* KYRefreshControl.m in Sources */ = {isa = PBXBuildFile; fileRef = 1B3664B11865ABAB006F6231 /* KYRefreshControl.m */; };
 		1B3664B518669F03006F6231 /* KYPathAnimationRefreshControl.m in Sources */ = {isa = PBXBuildFile; fileRef = 1B3664B418669F03006F6231 /* KYPathAnimationRefreshControl.m */; };
 /* End PBXBuildFile section */
 
@@ -36,6 +36,8 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		1B32991218E2A54900708CAE /* KYRefreshControl.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = KYRefreshControl.h; sourceTree = "<group>"; };
+		1B32991318E2A54900708CAE /* KYRefreshControl.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = KYRefreshControl.m; sourceTree = "<group>"; };
 		1B3664781865A9FA006F6231 /* PullToRefreshControlDemo.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = PullToRefreshControlDemo.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		1B36647B1865A9FA006F6231 /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
 		1B36647D1865A9FA006F6231 /* CoreGraphics.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreGraphics.framework; path = System/Library/Frameworks/CoreGraphics.framework; sourceTree = SDKROOT; };
@@ -55,8 +57,6 @@
 		1B3664A21865A9FB006F6231 /* PullToRefreshControlDemoTests-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = "PullToRefreshControlDemoTests-Info.plist"; sourceTree = "<group>"; };
 		1B3664A41865A9FB006F6231 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/InfoPlist.strings; sourceTree = "<group>"; };
 		1B3664A61865A9FB006F6231 /* PullToRefreshControlDemoTests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = PullToRefreshControlDemoTests.m; sourceTree = "<group>"; };
-		1B3664B01865ABAB006F6231 /* KYRefreshControl.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = KYRefreshControl.h; sourceTree = "<group>"; };
-		1B3664B11865ABAB006F6231 /* KYRefreshControl.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = KYRefreshControl.m; sourceTree = "<group>"; };
 		1B3664B318669F03006F6231 /* KYPathAnimationRefreshControl.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = KYPathAnimationRefreshControl.h; sourceTree = "<group>"; };
 		1B3664B418669F03006F6231 /* KYPathAnimationRefreshControl.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = KYPathAnimationRefreshControl.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -118,13 +118,11 @@
 		1B3664811865A9FA006F6231 /* PullToRefreshControlDemo */ = {
 			isa = PBXGroup;
 			children = (
-				1B36648A1865A9FA006F6231 /* KYAppDelegate.h */,
-				1B36648B1865A9FA006F6231 /* KYAppDelegate.m */,
 				1B36648D1865A9FA006F6231 /* Main.storyboard */,
 				1B3664901865A9FA006F6231 /* KYViewController.h */,
 				1B3664911865A9FA006F6231 /* KYViewController.m */,
-				1B3664B01865ABAB006F6231 /* KYRefreshControl.h */,
-				1B3664B11865ABAB006F6231 /* KYRefreshControl.m */,
+				1B32991218E2A54900708CAE /* KYRefreshControl.h */,
+				1B32991318E2A54900708CAE /* KYRefreshControl.m */,
 				1B3664B318669F03006F6231 /* KYPathAnimationRefreshControl.h */,
 				1B3664B418669F03006F6231 /* KYPathAnimationRefreshControl.m */,
 				1B3664931865A9FA006F6231 /* Images.xcassets */,
@@ -136,6 +134,8 @@
 		1B3664821865A9FA006F6231 /* Supporting Files */ = {
 			isa = PBXGroup;
 			children = (
+				1B36648A1865A9FA006F6231 /* KYAppDelegate.h */,
+				1B36648B1865A9FA006F6231 /* KYAppDelegate.m */,
 				1B3664831865A9FA006F6231 /* PullToRefreshControlDemo-Info.plist */,
 				1B3664841865A9FA006F6231 /* InfoPlist.strings */,
 				1B3664871865A9FA006F6231 /* main.m */,
@@ -262,7 +262,7 @@
 			files = (
 				1B3664B518669F03006F6231 /* KYPathAnimationRefreshControl.m in Sources */,
 				1B3664921865A9FA006F6231 /* KYViewController.m in Sources */,
-				1B3664B21865ABAB006F6231 /* KYRefreshControl.m in Sources */,
+				1B32991418E2A54900708CAE /* KYRefreshControl.m in Sources */,
 				1B36648C1865A9FA006F6231 /* KYAppDelegate.m in Sources */,
 				1B3664881865A9FA006F6231 /* main.m in Sources */,
 			);
@@ -473,6 +473,7 @@
 				1B3664AC1865A9FB006F6231 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 		1B3664AD1865A9FB006F6231 /* Build configuration list for PBXNativeTarget "PullToRefreshControlDemoTests" */ = {
 			isa = XCConfigurationList;
@@ -481,6 +482,7 @@
 				1B3664AF1865A9FB006F6231 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
 	};

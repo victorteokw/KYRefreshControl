@@ -8,11 +8,16 @@
 
 #import "KYRefreshControl.h"
 #import <UIKit/UIScrollView.h>
-#define DEFAULT_Y -64
+
 #define SUPER_VIEW_IS_DRAGGING self.scrollView.isDragging
 @interface KYRefreshControl ()
 @property (nonatomic) CGFloat height;
 @property (nonatomic, readwrite, getter=isRefreshing) BOOL refreshing;
+
+@property (nonatomic, readwrite) CGFloat threshold;
+
+@property (nonatomic, strong, readwrite) UIView *animationView;
+
 @property (nonatomic, weak) UIScrollView *scrollView;
 @property (nonatomic, strong) NSTimer *monitorDraggingTimer;
 @end
@@ -21,15 +26,16 @@
 
 
 
-- (instancetype)initWithThreshold:(CGFloat)threshold height:(CGFloat)height animationView:(UIView *)animationView
+- (instancetype)initWithThreshold:(CGFloat)threshold height:(CGFloat)height
 {
     self = [super initWithFrame:CGRectZero];
     if (self) {
         _threshold = threshold;
         _height = height;
-        _animationView = animationView;
         self.opaque = NO;
         self.hidden = YES;
+        UIView *animationView = [[UIView alloc] init];
+        self.animationView = animationView;
     }
     return self;
 }
@@ -37,46 +43,66 @@
 - (void)didMoveToSuperview
 {
     [super didMoveToSuperview];
+    if (!self.superview) {
+        return;
+    }
     
     if (self.superview && [self.superview isKindOfClass:[UIScrollView class]]) {
         [self.superview addObserver:self forKeyPath:@"contentOffset" options:NSKeyValueObservingOptionNew context:NULL];
         self.scrollView = (UIScrollView *)self.superview;
     }
-    self.frame = CGRectMake(0, -self.height, CGRectGetWidth(self.superview.bounds), self.height);
-    self.animationView.frame = self.bounds;
+    
     self.backgroundColor = [UIColor clearColor];
     [self addSubview:self.animationView];
+    [self resetFrame];
     [self.superview sendSubviewToBack:self];
+}
+
+- (void)layoutSubviews
+{
+    [super layoutSubviews];
+    [self resetFrame];
+}
+
+- (void)resetFrame
+{
+    self.frame = CGRectMake(0, -self.height, CGRectGetWidth(self.superview.bounds), self.height);
+    self.animationView.frame = self.bounds;
 }
 
 - (void)observeValueForKeyPath:(NSString *)keyPath ofObject:(id)object change:(NSDictionary *)change context:(void *)context
 {
+    CGFloat yOffset = [self yOffset];
     if (object == self.superview && [keyPath isEqualToString:@"contentOffset"]) {
         NSValue *contentOffsetValue = change[NSKeyValueChangeNewKey];
         CGPoint point;
         [contentOffsetValue getValue:&point];
         CGFloat offset = self.scrollView.contentOffset.y+self.scrollView.contentInset.top;
         CGFloat fractionDragged = MIN(1, -offset/self.threshold);
-        if (point.y < DEFAULT_Y && !self.isRefreshing) {
+        if (point.y < yOffset && !self.isRefreshing) {
             self.hidden = NO;
-            if (self.userIsDraggingAnimation) {
-                self.userIsDraggingAnimation(fractionDragged);
-            }
+
+            [self dragging:fractionDragged];
         }
-        if (point.y == DEFAULT_Y && !self.isRefreshing) {
+        if (point.y == yOffset && !self.isRefreshing) {
             self.hidden = YES;
-            if (self.userIsDraggingAnimation) {
-                self.userIsDraggingAnimation(fractionDragged);
-            }
+            [self dragging:fractionDragged];
         }
-        if (point.y < DEFAULT_Y - self.threshold && self.isRefreshing == NO) {
-            if (self.thresholdReachedAnimation) {
-                self.thresholdReachedAnimation();
-            }
+        if (point.y < yOffset - self.threshold && self.isRefreshing == NO && self.scrollView.isDragging) {
+            NSLog(@"%@", NSStringFromCGRect(self.scrollView.frame));
+            NSLog(@"%@", NSStringFromCGRect(self.scrollView.bounds));
+            NSLog(@"%@", NSStringFromUIEdgeInsets(self.scrollView.contentInset));
+            
+            [self thresholdReached];
             [self beginRefreshing];
             
         }
     }
+}
+
+- (CGFloat)yOffset
+{
+    return -self.scrollView.contentInset.top;
 }
 
 - (void)beginRefreshing
@@ -90,9 +116,7 @@
             [[NSRunLoop currentRunLoop] addTimer:self.monitorDraggingTimer forMode:NSRunLoopCommonModes];
         }
         [self sendActionsForControlEvents:UIControlEventValueChanged];
-        if (self.updatingAnimation) {
-            self.updatingAnimation();
-        }
+        [self updating];
     }
 }
 
@@ -110,9 +134,7 @@
     if (SUPER_VIEW_IS_DRAGGING) {
         [self performSelector:@selector(endRefreshing) withObject:nil afterDelay:0.0];
     } else {
-        if (self.disappearingAnimation) {
-            self.disappearingAnimation();
-        }
+        [self disappearing];
         [UIView animateWithDuration:self.disappearingTimeInterval ? self.disappearingTimeInterval : 0.2 delay:0.0 options:UIViewAnimationOptionCurveEaseInOut | UIViewAnimationOptionAllowUserInteraction animations:^{
             UIEdgeInsets currentContentInset = self.scrollView.contentInset;
             self.scrollView.contentInset = UIEdgeInsetsMake(currentContentInset.top - self.height, currentContentInset.left, currentContentInset.bottom, currentContentInset.right);
@@ -135,5 +157,11 @@
         }
     }
 }
+
+/** Methods for subclassing */
+- (void)dragging:(CGFloat)fractionDragged{}
+- (void)thresholdReached{}
+- (void)updating{}
+- (void)disappearing{}
 
 @end

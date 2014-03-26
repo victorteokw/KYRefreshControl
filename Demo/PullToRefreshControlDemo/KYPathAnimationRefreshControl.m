@@ -27,27 +27,33 @@
 
 - (instancetype)init
 {
-    self = [super initWithThreshold:70 height:70 animationView:nil];
+    self = [super initWithThreshold:50 height:50];
     if (self) {
         [self setupLoadingIndicator];
-        self.animationView = _loadingIndicator;
-        __weak KYPathAnimationRefreshControl *weakSelf = self;
-        [weakSelf.pullToRefreshShape addAnimation:[weakSelf pullDownAnimation]
+
+        [self.pullToRefreshShape addAnimation:[self pullDownAnimation]
                                            forKey:@"Write 'Load' as you drag down"];
-        self.userIsDraggingAnimation = ^(CGFloat fractionDragged){
-            weakSelf.pullToRefreshShape.timeOffset = fractionDragged;
-        };
-        self.thresholdReachedAnimation = ^(){
-            [weakSelf.loadingShape addAnimation:[weakSelf loadingAnimation]
-                                     forKey:@"Write that word"];
-        };
-        self.disappearingAnimation = ^(){
-            weakSelf.pullToRefreshShape.timeOffset = 0;
-            [weakSelf.loadingShape removeAllAnimations];
-        };
+
+
         self.disappearingTimeInterval = 0.3;
     }
     return self;
+}
+
+- (void)dragging:(CGFloat)fractionDragged
+{
+    self.pullToRefreshShape.timeOffset = fractionDragged;
+}
+
+- (void)thresholdReached
+{
+    [self.loadingShape addAnimation:[self loadingAnimation] forKey:@"Write that word"];
+}
+
+- (void)disappearing
+{
+    self.pullToRefreshShape.timeOffset = 0;
+    [self.loadingShape removeAllAnimations];
 }
 
 - (void)setupLoadingIndicator
@@ -56,9 +62,8 @@
     loadShape.path = [self loadPath];
     CAShapeLayer *ingShape  = [CAShapeLayer layer];
     ingShape.path  = [self ingPath];
+    self.loadingIndicator = self.animationView;
     
-    UIView *loadingIndicator = [[UIView alloc] initWithFrame:CGRectMake(0, -45, 230, 70)];
-    self.loadingIndicator = loadingIndicator;
     self.loadingIndicator.backgroundColor = [UIColor clearColor];
     for (CAShapeLayer *shape in @[loadShape, ingShape]) {
         shape.strokeColor = [UIColor blackColor].CGColor;
@@ -70,7 +75,7 @@
         
         shape.strokeEnd = .0;
         
-        [loadingIndicator.layer addSublayer:shape];
+        [self.loadingIndicator.layer addSublayer:shape];
     }
     
     loadShape.speed = 0; // pull to refresh layer is paused here
@@ -91,7 +96,7 @@
     
     // The layer is moved up so that the larger loading layer can fit above the cells
     CABasicAnimation *move = [CABasicAnimation animationWithKeyPath:@"position.y"];
-    move.byValue = @(-22);
+    move.byValue = @(-20);
     move.toValue = @0;
     
     CAAnimationGroup *group = [CAAnimationGroup animation];
