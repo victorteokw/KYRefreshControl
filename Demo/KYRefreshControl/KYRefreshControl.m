@@ -20,6 +20,9 @@
 
 @property (nonatomic, weak) UIScrollView *scrollView;
 @property (nonatomic, strong) NSTimer *monitorDraggingTimer;
+
+@property (nonatomic, assign) BOOL observingSuperview;
+
 @end
 
 @implementation KYRefreshControl
@@ -40,6 +43,15 @@
     return self;
 }
 
+- (void)willMoveToSuperview:(UIView *)newSuperview
+{
+    [super willMoveToSuperview:newSuperview];
+    if (self.observingSuperview) {
+        self.observingSuperview = NO;
+        [self.superview removeObserver:self forKeyPath:@"contentOffset"];
+    }
+}
+
 - (void)didMoveToSuperview
 {
     [super didMoveToSuperview];
@@ -47,7 +59,8 @@
         return;
     }
     
-    if (self.superview && [self.superview isKindOfClass:[UIScrollView class]]) {
+    if (!self.observingSuperview && self.superview && [self.superview isKindOfClass:[UIScrollView class]]) {
+        self.observingSuperview = YES;
         [self.superview addObserver:self forKeyPath:@"contentOffset" options:NSKeyValueObservingOptionNew context:NULL];
         self.scrollView = (UIScrollView *)self.superview;
     }
