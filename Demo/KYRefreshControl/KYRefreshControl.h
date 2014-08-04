@@ -18,12 +18,11 @@
 
 @property (nonatomic, readonly, getter=isRefreshing) BOOL refreshing;
 
-@property (nonatomic, strong) UIColor *tintColor;
-@property (nonatomic, strong) NSAttributedString *attributedTitle UI_APPEARANCE_SELECTOR;
+@property (nonatomic, strong) UIColor *tintColor; // NOTE: TO BE IMPLEMENTED
+@property (nonatomic, strong) NSAttributedString *attributedTitle UI_APPEARANCE_SELECTOR; // NOTE: TO BE IMPLEMENTED
 
 - (void)beginRefreshing;
 - (void)endRefreshing;
-
 
 
 @property (nonatomic, readonly) CGFloat threshold;

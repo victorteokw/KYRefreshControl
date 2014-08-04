@@ -10,7 +10,9 @@
 #import <UIKit/UIScrollView.h>
 
 #define SUPER_VIEW_IS_DRAGGING self.scrollView.isDragging
+
 @interface KYRefreshControl ()
+
 @property (nonatomic) CGFloat height;
 @property (nonatomic, readwrite, getter=isRefreshing) BOOL refreshing;
 
@@ -20,13 +22,13 @@
 
 @property (nonatomic, weak) UIScrollView *scrollView;
 @property (nonatomic, strong) NSTimer *monitorDraggingTimer;
+@property (nonatomic, readwrite, getter=isInsetChanged) BOOL insetChanged;
 
 @property (nonatomic, assign) BOOL observingSuperview;
 
 @end
 
 @implementation KYRefreshControl
-
 
 
 - (instancetype)initWithThreshold:(CGFloat)threshold height:(CGFloat)height
@@ -136,8 +138,11 @@
 - (void)setSuperviewContentInsets
 {
     [UIView animateWithDuration:0.2f delay:0.0f options:UIViewAnimationOptionCurveEaseInOut | UIViewAnimationOptionAllowUserInteraction animations:^{
-        UIEdgeInsets currentContentInset = self.scrollView.contentInset;
-        self.scrollView.contentInset = UIEdgeInsetsMake(currentContentInset.top + self.height, currentContentInset.left, currentContentInset.bottom, currentContentInset.right);
+        if (!self.isInsetChanged) {
+            UIEdgeInsets currentContentInset = self.scrollView.contentInset;
+            self.scrollView.contentInset = UIEdgeInsetsMake(currentContentInset.top + self.height, currentContentInset.left, currentContentInset.bottom, currentContentInset.right);
+            self.insetChanged = YES;
+        }
     } completion:nil];
 }
 
@@ -149,8 +154,11 @@
     } else {
         [self disappearing];
         [UIView animateWithDuration:self.disappearingTimeInterval ? self.disappearingTimeInterval : 0.2 delay:0.0 options:UIViewAnimationOptionCurveEaseInOut | UIViewAnimationOptionAllowUserInteraction animations:^{
-            UIEdgeInsets currentContentInset = self.scrollView.contentInset;
-            self.scrollView.contentInset = UIEdgeInsetsMake(currentContentInset.top - self.height, currentContentInset.left, currentContentInset.bottom, currentContentInset.right);
+            if (self.isInsetChanged) {
+                UIEdgeInsets currentContentInset = self.scrollView.contentInset;
+                self.scrollView.contentInset = UIEdgeInsetsMake(currentContentInset.top - self.height, currentContentInset.left, currentContentInset.bottom, currentContentInset.right);
+                self.insetChanged = NO;
+            }
         } completion:^(BOOL finished) {
             self.refreshing = NO;
             self.hidden = YES;

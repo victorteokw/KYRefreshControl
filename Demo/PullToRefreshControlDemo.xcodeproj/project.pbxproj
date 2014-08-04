@@ -7,7 +7,6 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		1B32991418E2A54900708CAE /* KYRefreshControl.m in Sources */ = {isa = PBXBuildFile; fileRef = 1B32991318E2A54900708CAE /* KYRefreshControl.m */; };
 		1B36647C1865A9FA006F6231 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1B36647B1865A9FA006F6231 /* Foundation.framework */; };
 		1B36647E1865A9FA006F6231 /* CoreGraphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1B36647D1865A9FA006F6231 /* CoreGraphics.framework */; };
 		1B3664801865A9FA006F6231 /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1B36647F1865A9FA006F6231 /* UIKit.framework */; };
@@ -23,6 +22,8 @@
 		1B3664A51865A9FB006F6231 /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = 1B3664A31865A9FB006F6231 /* InfoPlist.strings */; };
 		1B3664A71865A9FB006F6231 /* PullToRefreshControlDemoTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 1B3664A61865A9FB006F6231 /* PullToRefreshControlDemoTests.m */; };
 		1B3664B518669F03006F6231 /* KYPathAnimationRefreshControl.m in Sources */ = {isa = PBXBuildFile; fileRef = 1B3664B418669F03006F6231 /* KYPathAnimationRefreshControl.m */; };
+		1BEBA202198FB9C400B6435A /* KYRefreshControl.m in Sources */ = {isa = PBXBuildFile; fileRef = 1BEBA201198FB9C400B6435A /* KYRefreshControl.m */; };
+		1BEBA203198FB9C400B6435A /* KYRefreshControl.m in Sources */ = {isa = PBXBuildFile; fileRef = 1BEBA201198FB9C400B6435A /* KYRefreshControl.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -36,8 +37,6 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
-		1B32991218E2A54900708CAE /* KYRefreshControl.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = KYRefreshControl.h; sourceTree = "<group>"; };
-		1B32991318E2A54900708CAE /* KYRefreshControl.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = KYRefreshControl.m; sourceTree = "<group>"; };
 		1B3664781865A9FA006F6231 /* PullToRefreshControlDemo.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = PullToRefreshControlDemo.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		1B36647B1865A9FA006F6231 /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
 		1B36647D1865A9FA006F6231 /* CoreGraphics.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreGraphics.framework; path = System/Library/Frameworks/CoreGraphics.framework; sourceTree = SDKROOT; };
@@ -59,6 +58,8 @@
 		1B3664A61865A9FB006F6231 /* PullToRefreshControlDemoTests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = PullToRefreshControlDemoTests.m; sourceTree = "<group>"; };
 		1B3664B318669F03006F6231 /* KYPathAnimationRefreshControl.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = KYPathAnimationRefreshControl.h; sourceTree = "<group>"; };
 		1B3664B418669F03006F6231 /* KYPathAnimationRefreshControl.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = KYPathAnimationRefreshControl.m; sourceTree = "<group>"; };
+		1BEBA200198FB9C400B6435A /* KYRefreshControl.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = KYRefreshControl.h; path = KYRefreshControl/KYRefreshControl.h; sourceTree = SOURCE_ROOT; };
+		1BEBA201198FB9C400B6435A /* KYRefreshControl.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = KYRefreshControl.m; path = KYRefreshControl/KYRefreshControl.m; sourceTree = SOURCE_ROOT; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -121,10 +122,10 @@
 				1B36648D1865A9FA006F6231 /* Main.storyboard */,
 				1B3664901865A9FA006F6231 /* KYViewController.h */,
 				1B3664911865A9FA006F6231 /* KYViewController.m */,
-				1B32991218E2A54900708CAE /* KYRefreshControl.h */,
-				1B32991318E2A54900708CAE /* KYRefreshControl.m */,
 				1B3664B318669F03006F6231 /* KYPathAnimationRefreshControl.h */,
 				1B3664B418669F03006F6231 /* KYPathAnimationRefreshControl.m */,
+				1BEBA200198FB9C400B6435A /* KYRefreshControl.h */,
+				1BEBA201198FB9C400B6435A /* KYRefreshControl.m */,
 				1B3664931865A9FA006F6231 /* Images.xcassets */,
 				1B3664821865A9FA006F6231 /* Supporting Files */,
 			);
@@ -262,7 +263,7 @@
 			files = (
 				1B3664B518669F03006F6231 /* KYPathAnimationRefreshControl.m in Sources */,
 				1B3664921865A9FA006F6231 /* KYViewController.m in Sources */,
-				1B32991418E2A54900708CAE /* KYRefreshControl.m in Sources */,
+				1BEBA202198FB9C400B6435A /* KYRefreshControl.m in Sources */,
 				1B36648C1865A9FA006F6231 /* KYAppDelegate.m in Sources */,
 				1B3664881865A9FA006F6231 /* main.m in Sources */,
 			);
@@ -273,6 +274,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				1B3664A71865A9FB006F6231 /* PullToRefreshControlDemoTests.m in Sources */,
+				1BEBA203198FB9C400B6435A /* KYRefreshControl.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
