@@ -25,16 +25,18 @@
 - (instancetype)init
 {
     self = [super initWithThreshold:50 height:50];
-    if (self) {
-        [self setupLoadingIndicator];
-
-        [self.pullToRefreshShape addAnimation:[self pullDownAnimation]
-                                           forKey:@"Write 'Load' as you drag down"];
-
-
-        self.disappearingTimeInterval = 0.3;
-    }
     return self;
+}
+
+- (void)setupAfterInit
+{
+    [self setupLoadingIndicator];
+
+    [self.pullToRefreshShape addAnimation:[self pullDownAnimation]
+                                   forKey:@"Write 'Load' as you drag down"];
+
+
+    self.disappearingTimeInterval = 0.1;
 }
 
 - (void)dragging:(CGFloat)fractionDragged

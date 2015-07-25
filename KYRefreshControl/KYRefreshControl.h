@@ -32,6 +32,7 @@
 @property (nonatomic) NSTimeInterval disappearingTimeInterval;
 
 /** Methods for subclassing */
+- (void)setupAfterInit;
 - (void)dragging:(CGFloat)fractionDragged;
 - (void)thresholdReached;
 - (void)updating;

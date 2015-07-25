@@ -41,6 +41,7 @@
         self.hidden = YES;
         UIView *animationView = [[UIView alloc] init];
         self.animationView = animationView;
+        [self setupAfterInit];
     }
     return self;
 }
@@ -180,6 +181,7 @@
 }
 
 /** Methods for subclassing */
+- (void)setupAfterInit{}
 - (void)dragging:(CGFloat)fractionDragged{}
 - (void)thresholdReached{}
 - (void)updating{}
